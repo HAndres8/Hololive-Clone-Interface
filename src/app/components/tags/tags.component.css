@@ -1,0 +1,86 @@
+ul {
+    list-style: none;
+    box-sizing: border-box;
+}
+a {
+    display: table-cell;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 10px;
+    color: #063f5c;
+    border: 1px solid #063f5c;
+    border-radius: 5px;
+    position: relative;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.containerTags {
+    animation-name: fade_tag;
+    animation-duration: 0.9s;
+    animation-fill-mode: forwards;
+    position: relative;
+    transition: 0.9s ease;
+    opacity: 1;
+
+    max-width: 1100px;
+    width: 94%;
+    margin: 0 auto 30px;
+}
+.tag {
+    display: table;
+    float: left;
+    width: 24.34%;
+    margin-bottom: 4px;
+    margin-right: 0.66%;
+}
+
+.panel::after {
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+    content: ".";
+}
+a::before {
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: 0.2s;
+    z-index: -1;
+}
+a::after {
+    content: "";
+    position: absolute;
+    background-color: #063f5c;
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition: 0.2s;
+    z-index: -1;
+}
+a:hover::after {
+    width: 100%;
+}
+a:hover {
+    color: #fff;
+    animation: repaint 0.001s; /*Force the animation*/
+}
+
+@keyframes repaint {
+    from { opacity: 1; }
+    to { opacity: 0.99; }
+}
+@keyframes fade_tag{
+    from {
+        transform: translateX(-90px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}

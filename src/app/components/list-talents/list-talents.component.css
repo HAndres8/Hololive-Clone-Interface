@@ -1,0 +1,68 @@
+div{
+    display: block;
+}
+ul{
+    list-style: none;
+    box-sizing: border-box;
+}
+figure {
+    overflow: hidden;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    transition: 0.2s;
+}
+a {
+    text-decoration: none;
+    padding: 8px;
+    display: block;
+    transition: 0.2s;
+}
+h2 {
+    color: #063f5c;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.3em;
+}
+span {
+    display: block;
+    font-size: 13px;
+}
+
+.containerTalentList {
+    animation-name: fade_talent;
+    animation-duration: 0.9s;
+    animation-fill-mode: forwards;
+    position: relative;
+    transition: 0.9s ease;
+    opacity: 1;
+
+    max-width: 1100px;
+    width: 94%;
+    margin: 0 auto;
+}
+.talent {
+    float: left;
+    height: 235px;
+    width: 16.66%;
+}
+
+a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: 0.2s;
+}
+a:hover img {
+    transform: scale(1.2);
+    transition: 0.2s;
+}
+
+
+@keyframes fade_talent{
+    0%{
+        transform: translateY(90px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
