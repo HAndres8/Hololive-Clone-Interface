@@ -57,6 +57,13 @@ a:hover img {
     transition: 0.2s;
 }
 
+.panel::after {
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+    content: ".";
+}
 
 @keyframes fade_talent{
     0%{
