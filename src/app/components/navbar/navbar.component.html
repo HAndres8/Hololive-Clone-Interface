@@ -1,1 +1,39 @@
-<p>navbar works!</p>
+<header>
+    <a class="title" [routerLink]="['/talents']">
+        <img src="https://hololive.hololivepro.com/wp-content/themes/hololive/images/head_l_in.png" alt="hololive">
+    </a>
+    <nav>
+        <ul>
+            <li>
+                <a [routerLink]="['/talents']">TOP</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">NEWS</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">ABOUT</a>
+            </li>
+            <li>
+                <a  class="isActive" [routerLink]="['/talents']">TALENT</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">SCHEDULE</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">EVENTS</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">VIDEOS</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">MUSIC</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">MERCH</a>
+            </li>
+            <li>
+                <a [routerLink]="['/talents']">SPECIAL</a>
+            </li>
+        </ul>
+    </nav>
+</header>

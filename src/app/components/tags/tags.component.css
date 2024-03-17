@@ -69,13 +69,13 @@ a:hover::after {
 }
 a:hover {
     color: #fff;
-    animation: repaint 0.001s; /*Force the animation*/
 }
 
-@keyframes repaint {
-    from { opacity: 1; }
-    to { opacity: 0.99; }
+.isActive {
+    background-color: #063f5c;
+    color: #fff;
 }
+
 @keyframes fade_tag{
     from {
         transform: translateX(-90px);

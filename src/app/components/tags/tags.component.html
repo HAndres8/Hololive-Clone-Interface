@@ -1,19 +1,19 @@
 <div class="containerTags">
     <ul class="panel">
         <li class="tag">
-            <a [routerLink]="['/talents']">ALL</a>
+            <a [routerLink]="['/talents']" (click)="filterTalents(0,'')" [ngClass]="{ 'isActive': linkActive == 0 }">ALL</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" [queryParams]="{ gp: 'hololive'}">hololive</a>
+            <a [routerLink]="['/talents']" (click)="filterTalents(1,'')" [ngClass]="{ 'isActive': linkActive == 1 }" [queryParams]="{ gp: 'hololive'}">hololive</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" [queryParams]="{ gp: 'gen-0'}">Gen 0</a>
+            <a [routerLink]="['/talents']" (click)="filterTalents(2,'gen-0')" [ngClass]="{ 'isActive': linkActive == 2 }" [queryParams]="{ gp: 'gen-0'}">Gen 0</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" [queryParams]="{ gp: 'gen-1'}">Gen 1</a>
+            <a [routerLink]="['/talents']" (click)="filterTalents(3,'gen-1')" [ngClass]="{ 'isActive': linkActive == 3 }" [queryParams]="{ gp: 'gen-1'}">Gen 1</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" [queryParams]="{ gp: 'gen-2'}">Gen 2</a>
+            <a [routerLink]="['/talents']" (click)="filterTalents(4,'gen-2')" [ngClass]="{ 'isActive': linkActive == 4 }" [queryParams]="{ gp: 'gen-2'}">Gen 2</a>
         </li>
     </ul>
 </div>

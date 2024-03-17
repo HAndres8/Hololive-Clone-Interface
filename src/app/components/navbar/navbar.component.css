@@ -1,0 +1,41 @@
+header {
+    position: fixed;
+    z-index: 50;
+    width: 100%;
+    padding: 14px 0 20px 20px;
+    top: 0;
+}
+img {
+    position: absolute;
+    width: 100px;
+    top: 14px;
+    left: 22px;
+}
+nav {
+    float: right;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0 20px;
+    border-radius: 50px 0 0 50px;
+}
+li {
+    display: inline-block;
+    position: relative;
+}
+a {
+    display: block;
+    line-height: 36px;
+    font-size: 12px;
+    padding: 0 14px;
+    font-weight: bold;
+    color: #116e9b;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+a:hover {
+    color: #56c6fd;
+    transition: 0.2s;
+}
+.isActive {
+    color: #56c6fd;
+}

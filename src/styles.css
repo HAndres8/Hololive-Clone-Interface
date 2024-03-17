@@ -8,6 +8,9 @@ p, blockquote, th, td, header, section, article, footer, article, aside, time, n
     margin: 0;
     padding: 0;
 }
+header, section, article, footer, article, aside, time, nav {
+    display: block;
+}
 
 body {
     text-align: center;
