@@ -1,19 +1,129 @@
 <div class="containerTags">
     <ul class="panel">
         <li class="tag">
-            <a [routerLink]="['/talents']" (click)="filterTalents(0,'')" [ngClass]="{ 'isActive': linkActive == 0 }">ALL</a>
+            <a [routerLink]="['/talents']" 
+            (click)="allTalents(0)" 
+            [ngClass]="{ 'isActive': linkActive == 0 }">ALL</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" (click)="filterTalents(1,'')" [ngClass]="{ 'isActive': linkActive == 1 }" [queryParams]="{ gp: 'hololive'}">hololive</a>
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByBra(1,'hololive')" 
+            [ngClass]="{ 'isActive': linkActive == 1 }" 
+            [queryParams]="{ gp: 'hololive'}">hololive</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" (click)="filterTalents(2,'gen-0')" [ngClass]="{ 'isActive': linkActive == 2 }" [queryParams]="{ gp: 'gen-0'}">Gen 0</a>
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(2,'gen-0')" 
+            [ngClass]="{ 'isActive': linkActive == 2 }" 
+            [queryParams]="{ gp: 'gen-0'}">Gen 0</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" (click)="filterTalents(3,'gen-1')" [ngClass]="{ 'isActive': linkActive == 3 }" [queryParams]="{ gp: 'gen-1'}">Gen 1</a>
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(3,'gen-1')" 
+            [ngClass]="{ 'isActive': linkActive == 3 }" 
+            [queryParams]="{ gp: 'gen-1'}">Gen 1</a>
         </li>
         <li class="tag">
-            <a [routerLink]="['/talents']" (click)="filterTalents(4,'gen-2')" [ngClass]="{ 'isActive': linkActive == 4 }" [queryParams]="{ gp: 'gen-2'}">Gen 2</a>
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(4,'gen-2')" 
+            [ngClass]="{ 'isActive': linkActive == 4 }" 
+            [queryParams]="{ gp: 'gen-2'}">Gen 2</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(5,'gamers')" 
+            [ngClass]="{ 'isActive': linkActive == 5 }" 
+            [queryParams]="{ gp: 'gamers'}">GAMERS</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(6,'gen-3')" 
+            [ngClass]="{ 'isActive': linkActive == 6 }" 
+            [queryParams]="{ gp: 'gen-3'}">Gen 3</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(7,'gen-4')" 
+            [ngClass]="{ 'isActive': linkActive == 7 }" 
+            [queryParams]="{ gp: 'gen-4'}">Gen 4</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(8,'gen-5')" 
+            [ngClass]="{ 'isActive': linkActive == 8 }" 
+            [queryParams]="{ gp: 'gen-5'}">Gen 5</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(9,'holox')" 
+            [ngClass]="{ 'isActive': linkActive == 9 }" 
+            [queryParams]="{ gp: 'holox'}">holoX</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByBra(10,'indonesia')" 
+            [ngClass]="{ 'isActive': linkActive == 10 }" 
+            [queryParams]="{ gp: 'indonesia'}">Indonesia</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByBra(11,'english')" 
+            [ngClass]="{ 'isActive': linkActive == 11 }" 
+            [queryParams]="{ gp: 'english'}">English</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(12,'myth')" 
+            [ngClass]="{ 'isActive': linkActive == 12 }" 
+            [queryParams]="{ gp: 'myth'}">Myth</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(13,'project-hope')" 
+            [ngClass]="{ 'isActive': linkActive == 13 }" 
+            [queryParams]="{ gp: 'project-hope'}">Project: HOPE</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(14,'council')" 
+            [ngClass]="{ 'isActive': linkActive == 14 }" 
+            [queryParams]="{ gp: 'council'}">Council</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(15,'promise')" 
+            [ngClass]="{ 'isActive': linkActive == 15 }" 
+            [queryParams]="{ gp: 'promise'}">Promise</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(16,'advent')" 
+            [ngClass]="{ 'isActive': linkActive == 16 }" 
+            [queryParams]="{ gp: 'advent'}">Advent</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByBra(17,'devis')" 
+            [ngClass]="{ 'isActive': linkActive == 17 }" 
+            [queryParams]="{ gp: 'devis'}">hololive DEV_IS</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(18,'regloss')" 
+            [ngClass]="{ 'isActive': linkActive == 18 }" 
+            [queryParams]="{ gp: 'regloss'}">ReGLOSS</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(19,'alum')" 
+            [ngClass]="{ 'isActive': linkActive == 19 }" 
+            [queryParams]="{ gp: 'alum'}">Alum</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen(20,'tag_office-staff')" 
+            [ngClass]="{ 'isActive': linkActive == 20 }" 
+            [queryParams]="{ gp: 'tag_office-staff'}">Office Staff</a>
         </li>
     </ul>
 </div>

@@ -13,17 +13,44 @@ export class TagsComponent {
 
   ngOnInit(): void{
     this.data = [
-      {'name:': 'Tokino Sora', 'gen': 'gen-0'},
-      {'name:': 'Robocosan', 'gen': 'gen-0'},
-      {'name:': 'Aki Rosenthal', 'gen': 'gen-1'},
-      {'name:': 'Akai Haato', 'gen': 'gen-1'},
-      {'name:': 'Shirakami Fubuki', 'gen': 'gen-1'},
-      {'name:': 'Natsuiro Matsuri', 'gen': 'gen-1'},
-      {'name:': 'Minato Aqua', 'gen': 'gen-2'}
+      {'name:': 'Tokino Sora', 'branch': 'hololive', 'gen': 'gen-0'},
+      {'name:': 'Robocosan', 'branch': 'hololive', 'gen': 'gen-0'},
+      {'name:': 'Aki Rosenthal', 'branch': 'hololive', 'gen': 'gen-1'},
+      {'name:': 'Akai Haato', 'branch': 'hololive', 'gen': 'gen-1'},
+      {'name:': 'Shirakami Fubuki', 'branch': 'hololive', 'gen': 'gen-1'},
+      {'name:': 'Natsuiro Matsuri', 'branch': 'hololive', 'gen': 'gen-1'},
+      {'name:': 'Minato Aqua', 'branch': 'hololive', 'gen': 'gen-2'}
     ]
   }
 
-  filterTalents(nbutton: number, gen: string) {
+  allTalents(nbutton: number) {
+    this.showData = this.data;
+    this.linkActive = nbutton;
+    console.log(this.showData);
+  }
+
+  /* Implements whit switch-case */
+  filterTalentsByBra(nbutton: number, branch: string) {
+    for(let i=0; i<this.data.length; i++){
+      if(this.data[i].branch == 'hololive' && this.data[i].branch == branch){
+        this.myData.push(this.data[i]);
+      }
+      if(this.data[i].branch == 'branch2' && this.data[i].branch == branch){
+        this.myData.push(this.data[i]);
+      }
+      if(this.data[i].branch == 'branch3' && this.data[i].branch == branch){
+        this.myData.push(this.data[i]);
+      }
+    }
+
+    this.showData = this.myData;
+    this.myData = [];
+    this.linkActive = nbutton;
+    console.log(this.showData);
+  }
+
+  /* Implements whit switch-case */
+  filterTalentsByGen(nbutton: number, gen: string) {
     for(let i=0; i<this.data.length; i++){
       if(this.data[i].gen == 'gen-0' && this.data[i].gen == gen){
         this.myData.push(this.data[i]);
@@ -39,5 +66,6 @@ export class TagsComponent {
     this.showData = this.myData;
     this.myData = [];
     this.linkActive = nbutton;
+    console.log(this.showData);
   }
 }

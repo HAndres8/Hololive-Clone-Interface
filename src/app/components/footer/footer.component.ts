@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  ngOnInit(): void {
+    document.getElementById('toTop')?.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 }
