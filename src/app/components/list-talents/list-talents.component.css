@@ -8,11 +8,19 @@ a {
     text-decoration: none;
 }
 figure {
+    position: relative;
+    padding-top: 100%;
+    margin-bottom: 8px;
+    height: 0;
+    border-radius: 5px;
     overflow: hidden;
 }
 img {
+    position: absolute;
     max-width: 100%;
     height: auto;
+    top: 0;
+    left: 0;
     transition: 0.2s;
 }
 h2 {
