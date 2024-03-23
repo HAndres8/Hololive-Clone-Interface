@@ -1,79 +1,13 @@
 <div class="containerTalentList">
     <ul>
-        <li class="talent">
+        <li class="talent" *ngFor="let talent of showData">
             <a [routerLink]="['/talents']">
                 <figure>
-                    <img alt="sora" src="https://hololive.hololivepro.com/wp-content/uploads/2021/05/tokino_sora_thumb.png">
+                    <img alt="{{talent.name}}" src="{{talent.image}}">
                 </figure>
                 <h2>
-                    Tokino Sora
-                    <span>ときのそら</span>
-                </h2>
-            </a>
-        </li>
-        <li class="talent">
-            <a [routerLink]="['/talents']">
-                <figure>
-                    <img height="340" width="340" alt="sora" src="https://hololive.hololivepro.com/wp-content/uploads/2020/06/roboco-san_thumb.png">
-                </figure>
-                <h2>
-                    Robocosan
-                    <span>ロボ子さん</span>
-                </h2>
-            </a>
-        </li>
-        <li class="talent">
-            <a [routerLink]="['/talents']">
-                <figure>
-                    <img height="340" width="340" alt="sora" src="https://hololive.hololivepro.com/wp-content/uploads/2023/04/Aki-Rosenthal_list_thumb.png">
-                </figure>
-                <h2>
-                    Aki Rosenthal
-                    <span>アキ・ローゼンタール</span>
-                </h2>
-            </a>
-        </li>
-        <li class="talent">
-            <a [routerLink]="['/talents']">
-                <figure>
-                    <img height="340" width="340" alt="sora" src="https://hololive.hololivepro.com/wp-content/uploads/2023/04/Akai-Haato_list_thumb.png">    
-                </figure>
-                <h2>
-                    Akai Haato
-                    <span>赤井はあと</span>
-                </h2>
-            </a>
-        </li>
-        <li class="talent">
-            <a [routerLink]="['/talents']">
-                <figure>
-                    <img height="340" width="340" alt="sora" src="https://hololive.hololivepro.com/wp-content/uploads/2020/06/Shirakami-Fubuki_list_thumb.png">    
-                </figure>
-                <h2>
-                    Shirakami Fubuki
-                    <span>白上フブキ</span>
-                </h2>
-            </a>
-        </li>
-        <li class="talent">
-            <a [routerLink]="['/talents']">
-                <figure>
-                    <img height="340" width="340" alt="sora" src="https://hololive.hololivepro.com/wp-content/uploads/2023/04/Natsuiro-Matsuri_list_thumb.png">    
-                </figure>
-                <h2>
-                    Natsuiro Matsuri
-                    <span>夏色まつり</span>
-                </h2>
-            </a>
-        </li>
-        <li class="talent">
-            <a [routerLink]="['/talents']">
-                <figure>
-                    <img height="340" width="340" alt="sora" src="https://hololive.hololivepro.com/wp-content/uploads/2023/04/Minato-Aqua_list_thumb.png">    
-                </figure>
-                <h2>
-                    Minato Aqua
-                    <span>湊あくあ</span>
+                    {{ talent.isAlum ? '[Alum] '+talent.name : talent.name }}
+                    <span>{{talent.nameJP}}</span>
                 </h2>
             </a>
         </li>

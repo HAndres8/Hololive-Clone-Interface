@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TalentService } from 'src/app/services/talent.service';
 
 @Component({
   selector: 'app-tags',
@@ -6,66 +7,122 @@ import { Component } from '@angular/core';
   styleUrls: ['./tags.component.css']
 })
 export class TagsComponent {
-  showData: any[] = [];
-  myData: any[] = [];
-  data: any[] = [];
-  linkActive: number = 0;
+  showData: any[] = [];             // Data for the list-talents component
+  linkActive: number = 0;           // Button active
 
-  ngOnInit(): void{
-    this.data = [
-      {'name:': 'Tokino Sora', 'branch': 'hololive', 'gen': 'gen-0'},
-      {'name:': 'Robocosan', 'branch': 'hololive', 'gen': 'gen-0'},
-      {'name:': 'Aki Rosenthal', 'branch': 'hololive', 'gen': 'gen-1'},
-      {'name:': 'Akai Haato', 'branch': 'hololive', 'gen': 'gen-1'},
-      {'name:': 'Shirakami Fubuki', 'branch': 'hololive', 'gen': 'gen-1'},
-      {'name:': 'Natsuiro Matsuri', 'branch': 'hololive', 'gen': 'gen-1'},
-      {'name:': 'Minato Aqua', 'branch': 'hololive', 'gen': 'gen-2'}
-    ]
+  constructor(private talentService: TalentService) { }
+
+  ngOnInit(): void {
+    this.allTalents(0);
   }
 
-  allTalents(nbutton: number) {
-    this.showData = this.data;
-    this.linkActive = nbutton;
-    console.log(this.showData);
+  filterTalentsByGen(nbutton:number, gen:string) {
+    this.talentService.getGene(gen).subscribe(data => {
+      this.showData = this.orderOneGen(data);
+      this.linkActive = nbutton;
+      this.talentService.shareData(this.showData);        // Share the data
+    });
   }
 
-  /* Implements whit switch-case */
-  filterTalentsByBra(nbutton: number, branch: string) {
-    for(let i=0; i<this.data.length; i++){
-      if(this.data[i].branch == 'hololive' && this.data[i].branch == branch){
-        this.myData.push(this.data[i]);
-      }
-      if(this.data[i].branch == 'branch2' && this.data[i].branch == branch){
-        this.myData.push(this.data[i]);
-      }
-      if(this.data[i].branch == 'branch3' && this.data[i].branch == branch){
-        this.myData.push(this.data[i]);
-      }
+  filterTalentsByBra(nbutton:number, bra:string) {
+    this.talentService.getBranch(bra).subscribe(data => {
+      this.showData = this.orderOneBranch(data);
+      this.linkActive = nbutton;
+      this.talentService.shareData(this.showData);
+    });
+  }
+
+  allTalents(nbutton:number) {
+    this.talentService.getBranches().subscribe(data => {
+      this.showData = this.orderBranches(data);
+      this.linkActive = nbutton;
+      this.talentService.shareData(this.showData);
+    });
+  }
+
+  
+  orderOneGen(data:any):any {
+    let activeTale = [];
+    let alumTale = [];
+
+    const tals = data.talentsGeneration;                // Save the talents in the branch
+    for(let i=0; i<tals.length; i++){
+        if(!tals[i].isAlum){                            // If not alum
+            activeTale.push(tals[i]);
+        }else{
+            alumTale.push(tals[i]);                       // If alum
+        }
     }
 
-    this.showData = this.myData;
-    this.myData = [];
-    this.linkActive = nbutton;
-    console.log(this.showData);
+    activeTale = activeTale.concat(alumTale);                     // First talents, then alum
+    return activeTale;
   }
+  orderOneBranch(data:any):any {
+    let activeTale = [];
+    let alumTale = [];
+    let noDupli = new Set<string>();
 
-  /* Implements whit switch-case */
-  filterTalentsByGen(nbutton: number, gen: string) {
-    for(let i=0; i<this.data.length; i++){
-      if(this.data[i].gen == 'gen-0' && this.data[i].gen == gen){
-        this.myData.push(this.data[i]);
-      }
-      if(this.data[i].gen == 'gen-1' && this.data[i].gen == gen){
-        this.myData.push(this.data[i]);
-      }
-      if(this.data[i].gen == 'gen-2' && this.data[i].gen == gen){
-        this.myData.push(this.data[i]);
-      }
+    const gens = data.generationsBranch;                    // Saves the generations in the branch
+    for(let i=0; i<gens.length; i++){
+
+        const tals = gens[i].talentsGeneration;             // Save the talents in the branch
+        for(let j=0; j<tals.length; j++){
+            if(!tals[j].isAlum){                            // If not alum
+                activeTale.push(tals[j]);
+            }else{
+                alumTale.push(tals[j]);                     // If alum
+            }
+        }
     }
 
-    this.showData = this.myData;
-    this.myData = [];
-    this.linkActive = nbutton;
-    console.log(this.showData);
+    let myData = activeTale.filter(talent => {
+      if(noDupli.has(talent.name)) {
+        return false;
+      }
+      noDupli.add(talent.name);
+      return true;
+    }); 
+    myData = myData.concat(alumTale);                       // First talents, then alum
+    return myData;
+  }
+  orderBranches(data:any):any {
+    let activeTale = [];
+    let otherTale = [];
+    let noDupli = new Set<string>();
+
+    for(let i=0; i<data.length; i++){
+        if(data[i].name != 'alum' && data[i].name != 'staff'){      // Normal branches first
+
+            const gens = data[i].generationsBranch;                 // Saves the generations in the branch
+            for(let j=0; j<gens.length; j++){
+
+                const tals = gens[j].talentsGeneration;             // Save the talents in the branch
+                for(let k=0; k<tals.length; k++){
+                    if(!tals[k].isAlum){                            // Only active talents
+                      activeTale.push(tals[k]);
+                    }
+                }
+            }
+        }else{                                                      // Other branches
+            const gens = data[i].generationsBranch;
+            for(let j=0; j<gens.length; j++){
+                
+                const tals = gens[j].talentsGeneration;
+                for(let k=0; k<tals.length; k++){
+                  otherTale.push(tals[k]);                          // Only alum and staff
+                }
+            }
+        }
+    }
+
+    let myData = activeTale.filter(talent => {
+      if(noDupli.has(talent.name)) {
+        return false;
+      }
+      noDupli.add(talent.name);
+      return true;
+    }); 		                                                        // Remove duplicate active talents
+    myData = myData.concat(otherTale);                              // First talents, then others
+    return myData;
   }
 }
