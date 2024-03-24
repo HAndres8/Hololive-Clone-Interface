@@ -37,7 +37,7 @@ h2.hol {
 
 h2.hol::before {
     position: absolute;
-    background-image: url("https://hololive.hololivepro.com/wp-content/themes/hololive/images/tit_bg_pink.png");
+    background-image: url("src/assets/asset/tit_bg_pink.png");
     background-repeat: no-repeat;
     background-size: 153px;
     width: 153px;
