@@ -8,34 +8,34 @@ import { TalentService } from 'src/app/services/talent.service';
 })
 export class TagsComponent {
   showData: any[] = [];             // Data for the list-talents component
-  linkActive: number = 0;           // Button active
+  linkActive: string = 'all';       // Button active
 
   constructor(private talentService: TalentService) { }
 
   ngOnInit(): void {
-    this.allTalents(0);
+    this.allTalents();
   }
 
-  filterTalentsByGen(nbutton:number, gen:string) {
+  filterTalentsByGen(gen:string) {
     this.talentService.getGene(gen).subscribe(data => {
       this.showData = this.orderOneGen(data);
-      this.linkActive = nbutton;
+      this.linkActive = gen;
       this.talentService.shareData(this.showData);        // Share the data
     });
   }
 
-  filterTalentsByBra(nbutton:number, bra:string) {
+  filterTalentsByBra(bra:string) {
     this.talentService.getBranch(bra).subscribe(data => {
       this.showData = this.orderOneBranch(data);
-      this.linkActive = nbutton;
+      this.linkActive = bra;
       this.talentService.shareData(this.showData);
     });
   }
 
-  allTalents(nbutton:number) {
+  allTalents() {
     this.talentService.getBranches().subscribe(data => {
       this.showData = this.orderBranches(data);
-      this.linkActive = nbutton;
+      this.linkActive = 'all';
       this.talentService.shareData(this.showData);
     });
   }
