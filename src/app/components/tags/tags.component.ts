@@ -45,49 +45,51 @@ export class TagsComponent {
     let activeTale = [];
     let alumTale = [];
 
-    const tals = data.talentsGeneration;                // Save the talents in the branch
+    const tals = data.talentsGeneration;                            // Save the talents in the branch
     for(let i=0; i<tals.length; i++){
-        if(!tals[i].isAlum){                            // If not alum
-            activeTale.push(tals[i]);
-        }else{
-            alumTale.push(tals[i]);                       // If alum
+        if(tals[i].isActive){                                       // If active
+          activeTale.push({"generation": data.name, "talent": tals[i]});
+        }else{                                                      // If inactive
+          alumTale.push({"generation": data.name, "talent": tals[i]});
         }
     }
 
-    activeTale = activeTale.concat(alumTale);                     // First talents, then alum
-    return activeTale;
+    let myData = activeTale.concat(alumTale);                       // First talents, then alum
+    return myData;
   }
   orderOneBranch(data:any):any {
     let activeTale = [];
     let alumTale = [];
     let noDupli = new Set<string>();
 
-    const gens = data.generationsBranch;                    // Saves the generations in the branch
+    const gens = data.generationsBranch;                            // Saves the generations in the branch
     for(let i=0; i<gens.length; i++){
 
-        const tals = gens[i].talentsGeneration;             // Save the talents in the branch
+        const tals = gens[i].talentsGeneration;                     // Save the talents in the branch
         for(let j=0; j<tals.length; j++){
-            if(!tals[j].isAlum){                            // If not alum
-                activeTale.push(tals[j]);
-            }else{
-                alumTale.push(tals[j]);                     // If alum
+            if(tals[j].isActive){                                   // If active
+                activeTale.push({"generation": gens[i].name, "talent": tals[j]});
+            }else{                                                  // If inactive
+                alumTale.push({"generation": gens[i].name, "talent": tals[j]});
             }
         }
     }
 
-    let myData = activeTale.filter(talent => {
-      if(noDupli.has(talent.name)) {
+    let myData = activeTale.filter(data => {
+      if(noDupli.has(data.talent.name)) {
         return false;
       }
-      noDupli.add(talent.name);
+      noDupli.add(data.talent.name);
       return true;
     }); 
-    myData = myData.concat(alumTale);                       // First talents, then alum
+    myData = myData.concat(alumTale);                               // First talents, then alum
     return myData;
   }
   orderBranches(data:any):any {
     let activeTale = [];
-    let otherTale = [];
+    let alumTale = [];
+    let activeStaff = [];
+    let alumStaff = [];
     let noDupli = new Set<string>();
 
     for(let i=0; i<data.length; i++){
@@ -98,31 +100,40 @@ export class TagsComponent {
 
                 const tals = gens[j].talentsGeneration;             // Save the talents in the branch
                 for(let k=0; k<tals.length; k++){
-                    if(!tals[k].isAlum){                            // Only active talents
-                      activeTale.push(tals[k]);
+                    if(tals[k].isActive){                           // Only active talents
+                      activeTale.push({"generation": gens[j].name, "talent": tals[k]});
                     }
                 }
             }
-        }else{                                                      // Other branches
+        }else{                                                      // Other branches (alum,staff)
             const gens = data[i].generationsBranch;
             for(let j=0; j<gens.length; j++){
-                
-                const tals = gens[j].talentsGeneration;
-                for(let k=0; k<tals.length; k++){
-                  otherTale.push(tals[k]);                          // Only alum and staff
+              const tals = gens[j].talentsGeneration;
+              for(let k=0; k<tals.length; k++){
+                if(data[i].name == 'alum'){                         // If alum
+                  alumTale.push({"generation": gens[j].name, "talent": tals[k]});
+                }else if(tals[k].isActive){                         // If not alum, is staff
+                  activeStaff.push({"generation": gens[j].name, "talent": tals[k]});
+                }else{                                              // If inactive staff
+                  alumStaff.push({"generation": gens[j].name, "talent": tals[k]});
                 }
+              }
             }
         }
     }
 
-    let myData = activeTale.filter(talent => {
-      if(noDupli.has(talent.name)) {
+    console.log(alumStaff)
+    let myData = activeTale.filter(data => {
+      if(noDupli.has(data.talent.name)) {
         return false;
       }
-      noDupli.add(talent.name);
+      noDupli.add(data.talent.name);
       return true;
     }); 		                                                        // Remove duplicate active talents
-    myData = myData.concat(otherTale);                              // First talents, then others
+    myData = myData.concat(alumTale);                               // First talents, then alums, then staff, then inactive staff
+    myData = myData.concat(activeStaff);
+    myData = myData.concat(alumStaff);
+    console.log(myData)
     return myData;
   }
 }
