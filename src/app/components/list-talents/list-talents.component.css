@@ -1,11 +1,14 @@
 ul{
     list-style: none;
+    display: flex;
+    flex-wrap: wrap;
 }
 a {
     display: block;
     padding: 8px;
     transition: 0.2s;
     text-decoration: none;
+    height: 100%;
 }
 figure {
     position: relative;
@@ -31,7 +34,7 @@ h2 {
 }
 span {
     display: block;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 div.containerTalentList {
@@ -50,7 +53,6 @@ div.containerTalentList {
 li.talent {
     float: left;
     width: 16.66%;
-    height: 235px;
 }
 
 a:hover {

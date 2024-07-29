@@ -103,6 +103,12 @@
         </li>
         <li class="tag">
             <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen('justice')" 
+            [ngClass]="{ 'isActive': linkActive == 'justice' }" 
+            [queryParams]="{ gp: 'justice'}">Justice</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
             (click)="filterTalentsByBra('devis')" 
             [ngClass]="{ 'isActive': linkActive == 'devis' }" 
             [queryParams]="{ gp: 'devis'}">hololive DEV_IS</a>
