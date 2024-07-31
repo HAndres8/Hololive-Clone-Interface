@@ -42,98 +42,78 @@ export class TagsComponent {
 
   
   orderOneGen(data:any):any {
-    let activeTale = [];
-    let alumTale = [];
+    const { nameG, talentsGeneration } = data;
+    
+    const allTale = talentsGeneration.map((talent:any) =>             // Save the talents in the branch
+     ({ generation: nameG, talent }));
 
-    const tals = data.talentsGeneration;                            // Save the talents in the branch
-    for(let i=0; i<tals.length; i++){
-        if(tals[i].isActive){                                       // If active
-          activeTale.push({"generation": data.name, "talent": tals[i]});
-        }else{                                                      // If inactive
-          alumTale.push({"generation": data.name, "talent": tals[i]});
-        }
-    }
-
-    let myData = activeTale.concat(alumTale);                       // First talents, then alum
-    return myData;
+    // If active
+    const activeTale = allTale.filter((t:any) => t.talent.isActive);
+    // If inactive
+    const alumTale = allTale.filter((t:any) => !t.talent.isActive);
+    
+    return [...activeTale, ...alumTale];                              // First talents, then alum
   }
   orderOneBranch(data:any):any {
-    let activeTale = [];
-    let alumTale = [];
+    const { nameB, generationsBranch } = data                         // Saves the generations in the branch
     let noDupli = new Set<string>();
 
-    const gens = data.generationsBranch;                            // Saves the generations in the branch
-    for(let i=0; i<gens.length; i++){
+    const allTale = generationsBranch.flatMap((generation:any) =>
+      generation.talentsGeneration.map((talent:any) =>                // Save the talents in the branch
+        ({ generation: generation.name, talent }))
+    );
 
-        const tals = gens[i].talentsGeneration;                     // Save the talents in the branch
-        for(let j=0; j<tals.length; j++){
-            if(tals[j].isActive){                                   // If active
-                activeTale.push({"generation": gens[i].name, "talent": tals[j]});
-            }else{                                                  // If inactive
-                alumTale.push({"generation": gens[i].name, "talent": tals[j]});
-            }
-        }
-    }
-
-    let myData = activeTale.filter(data => {
-      if(noDupli.has(data.talent.name)) {
+    // If active, also skip duplicates
+    const activeTale = allTale
+    .filter((t:any) => t.talent.isActive)
+    .filter((t:any) => {
+      if(noDupli.has(t.talent.name)) {
         return false;
       }
-      noDupli.add(data.talent.name);
+      noDupli.add(t.talent.name);
       return true;
-    }); 
-    myData = myData.concat(alumTale);                               // First talents, then alum
-    return myData;
+    });
+    // If inactive
+    const alumTale = allTale.filter((t:any) => !t.talent.isActive);
+
+    return [...activeTale, ...alumTale];                              // First talents, then alum
   }
   orderBranches(data:any):any {
-    let activeTale = [];
-    let alumTale = [];
-    let activeStaff = [];
-    let alumStaff = [];
     let noDupli = new Set<string>();
 
-    for(let i=0; i<data.length; i++){
-        if(data[i].name != 'alum' && data[i].name != 'staff'){      // Normal branches first
+    const allTale = data.flatMap((branch:any) =>
+      branch.generationsBranch.flatMap((generation:any) =>            // Save the generations in the branch
+        generation.talentsGeneration.map((talent:any) =>              // Save the talents in the branch
+          ({ generation: generation.name, talent }))
+    ));
 
-            const gens = data[i].generationsBranch;                 // Saves the generations in the branch
-            for(let j=0; j<gens.length; j++){
-
-                const tals = gens[j].talentsGeneration;             // Save the talents in the branch
-                for(let k=0; k<tals.length; k++){
-                    if(tals[k].isActive){                           // Only active talents
-                      activeTale.push({"generation": gens[j].name, "talent": tals[k]});
-                    }
-                }
-            }
-        }else{                                                      // Other branches (alum,staff)
-            const gens = data[i].generationsBranch;
-            for(let j=0; j<gens.length; j++){
-              const tals = gens[j].talentsGeneration;
-              for(let k=0; k<tals.length; k++){
-                if(data[i].name == 'alum'){                         // If alum
-                  alumTale.push({"generation": gens[j].name, "talent": tals[k]});
-                }else if(tals[k].isActive){                         // If not alum, is staff
-                  activeStaff.push({"generation": gens[j].name, "talent": tals[k]});
-                }else{                                              // If inactive staff
-                  alumStaff.push({"generation": gens[j].name, "talent": tals[k]});
-                }
-              }
-            }
-        }
-    }
-
-    console.log(alumStaff)
-    let myData = activeTale.filter(data => {
-      if(noDupli.has(data.talent.name)) {
+    // Normal branches first, active talents and skip duplicates
+    const activeTale = allTale
+    .filter((t:any) => t.generation != 'alum' && t.generation != 'staff')
+    .filter((t:any) => t.talent.isActive)
+    .filter((t:any) => {
+      if(noDupli.has(t.talent.name)) {
         return false;
       }
-      noDupli.add(data.talent.name);
+      noDupli.add(t.talent.name);
       return true;
-    }); 		                                                        // Remove duplicate active talents
-    myData = myData.concat(alumTale);                               // First talents, then alums, then staff, then inactive staff
-    myData = myData.concat(activeStaff);
-    myData = myData.concat(alumStaff);
-    console.log(myData)
-    return myData;
+    });
+
+    // If talent is alum (All alums are inactive)
+    const alumTale = allTale
+    .filter((t:any) => t.generation == 'alum');
+
+    // If talent is staff and active
+    const activeStaff = allTale
+    .filter((t:any) => t.generation == 'staff')
+    .filter((t:any) => t.talent.isActive);
+
+    // If talent is staff and inactive
+    const alumStaff = allTale
+    .filter((t:any) => t.generation == 'staff')
+    .filter((t:any) => !t.talent.isActive);
+
+    // First talents, then alums, then staff, then inactive staff
+    return [...activeTale, ...alumTale, ...activeStaff, ...alumStaff];
   }
 }
