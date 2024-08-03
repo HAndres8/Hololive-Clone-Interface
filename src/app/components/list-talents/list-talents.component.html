@@ -1,25 +1,23 @@
 <div class="containerTalentList">
-    <ul>
-        <li class="talent" *ngFor="let card of showData">
-            <a [routerLink]="['/talents']">
-                <figure>
-                    <img alt="{{card.talent.name}}" src="{{card.talent.image}}">
-                </figure>
-                <h2>
-                    <ng-container *ngIf="card.talent.isActive; else inactiveTemplate">
-                        {{ card.talent.name }}
-                    </ng-container>
-                    <ng-template #inactiveTemplate>
-                        <ng-container *ngIf="card.generation !='staff'; else staffTemplate">
-                            [Alum] {{ card.talent.name }}
-                        </ng-container>
-                        <ng-template #staffTemplate>
-                            [Retirement] {{ card.talent.name }}
-                        </ng-template>
-                    </ng-template>
-                    <span>{{card.talent.nameJP}}</span>
-                </h2>
-            </a>
-        </li>
-    </ul>
+  <ul>
+    @for (card of showData; track card) {
+      <li class="talent">
+        <a [routerLink]="['/talents']">
+          <figure>
+            <img alt="{{ card.talent.name }}" src="{{ card.talent.image }}">
+          </figure>
+          <h2>
+            @if (card.talent.isActive) {
+              {{ card.talent.name }}
+            } @else if (card.generation != 'staff') {
+              [Alum] {{ card.talent.name }}
+            } @else {
+              [Retirement] {{ card.talent.name }}
+            }
+            <span>{{ card.talent.nameJP }}</span>
+          </h2>
+        </a>
+      </li>
+    }
+  </ul>
 </div>
