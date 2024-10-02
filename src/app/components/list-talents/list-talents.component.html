@@ -7,7 +7,9 @@
             <img alt="{{ card.talent.name }}" src="{{ card.talent.image }}">
           </figure>
           <h2>
-            @if (card.talent.isActive) {
+            @if (card.talent.name == 'Watson Amelia') {
+              [Affiliate] {{ card.talent.name }}
+            } @else if (card.talent.isActive) {
               {{ card.talent.name }}
             } @else if (card.generation != 'staff') {
               [Alum] {{ card.talent.name }}
