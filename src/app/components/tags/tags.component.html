@@ -121,6 +121,12 @@
         </li>
         <li class="tag">
             <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByGen('flow-glow')" 
+            [ngClass]="{ 'isActive': linkActive == 'flow-glow' }" 
+            [queryParams]="{ gp: 'flow-glow'}">FLOW GLOW</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
             (click)="filterTalentsByBra('alum')" 
             [ngClass]="{ 'isActive': linkActive == 'alum' }" 
             [queryParams]="{ gp: 'alum'}">Alum</a>
