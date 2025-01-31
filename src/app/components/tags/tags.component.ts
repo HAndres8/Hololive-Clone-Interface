@@ -63,18 +63,19 @@ export class TagsComponent {
         ({ generation: generation.name, talent }))
     );
 
-    // If active, also skip duplicates
-    const activeTale = allTale
-    .filter((t:any) => t.talent.isActive)
-    .filter((t:any) => {
-      if(noDupli.has(t.talent.name)) {
-        return false;
+    // Skip duplicates
+    const filteredTale = allTale.filter((t: any) => {
+      if (noDupli.has(t.talent.name)) {
+          return false;
       }
       noDupli.add(t.talent.name);
       return true;
     });
+
+    // If active
+    const activeTale = filteredTale.filter((t:any) => t.talent.isActive);
     // If inactive
-    const alumTale = allTale.filter((t:any) => !t.talent.isActive);
+    const alumTale = filteredTale.filter((t:any) => !t.talent.isActive);
 
     return [...activeTale, ...alumTale];                              // First talents, then alum
   }
