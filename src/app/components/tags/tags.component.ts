@@ -90,7 +90,7 @@ export class TagsComponent {
 
     // Normal branches first, active talents and skip duplicates
     const activeTale = allTale
-    .filter((t:any) => t.generation != 'alum' && t.generation != 'staff')
+    .filter((t:any) => t.generation != 'alum' && t.generation != 'holoan' && t.generation != 'staff')
     .filter((t:any) => t.talent.isActive)
     .filter((t:any) => {
       if(noDupli.has(t.talent.name)) {
@@ -104,6 +104,10 @@ export class TagsComponent {
     const alumTale = allTale
     .filter((t:any) => t.generation == 'alum');
 
+    // If talent is in hololive Announcement
+    const announcementStaff = allTale
+    .filter((t:any) => t.generation == 'holoan')
+
     // If talent is staff and active
     const activeStaff = allTale
     .filter((t:any) => t.generation == 'staff')
@@ -115,6 +119,6 @@ export class TagsComponent {
     .filter((t:any) => !t.talent.isActive);
 
     // First talents, then alums, then staff, then inactive staff
-    return [...activeTale, ...alumTale, ...activeStaff, ...alumStaff];
+    return [...activeTale, ...alumTale, ...announcementStaff, ...activeStaff, ...alumStaff];
   }
 }

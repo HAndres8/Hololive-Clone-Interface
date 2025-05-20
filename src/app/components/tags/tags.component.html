@@ -133,6 +133,12 @@
         </li>
         <li class="tag">
             <a [routerLink]="['/talents']" 
+            (click)="filterTalentsByBra('holoan')" 
+            [ngClass]="{ 'isActive': linkActive == 'holoan' }" 
+            [queryParams]="{ gp: 'holoan'}">holoAN</a>
+        </li>
+        <li class="tag">
+            <a [routerLink]="['/talents']" 
             (click)="filterTalentsByBra('staff')" 
             [ngClass]="{ 'isActive': linkActive == 'staff' }" 
             [queryParams]="{ gp: 'tag_office-staff'}">Office Staff</a>
